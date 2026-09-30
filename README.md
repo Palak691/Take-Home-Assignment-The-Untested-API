@@ -111,3 +111,48 @@ See [ASSIGNMENT.md](./ASSIGNMENT.md) for full submission requirements. At minimu
 - **Bug report** — what you found, where in the code, and why it's a bug (not just symptoms)
 - **At least one fix** — with a note on your approach
 - **`PATCH /tasks/:id/assign` implementation** — plus a short explanation of any design decisions (validation, edge cases, etc.)
+
+
+## Submission Notes
+
+## Test Results
+
+All tests are passing.
+
+- **Test Suites:** 2 passed / 2 total
+- **Tests:** 47 passed / 47 total
+- **Statements:** 97.18%
+- **Branches:** 97.53%
+- **Functions:** 92.59%
+- **Lines:** 96.92%
+
+### Coverage
+
+
+-----------------|---------|----------|---------|---------|
+File             | % Stmts | % Branch | % Funcs | % Lines |
+-----------------|---------|----------|---------|---------|
+All files        |   97.18 |    97.53 |   92.59 |   96.92 |
+src              |   69.23 |       75 |       0 |   69.23 |
+src/routes       |     100 |      100 |     100 |     100 |
+src/services     |     100 |    94.11 |     100 |     100 |
+src/utils        |     100 |      100 |     100 |     100 |
+-----------------|---------|----------|---------|---------|
+
+
+### What I'd test next with more time
+
+I would add tests for the Express error-handling middleware in `app.js`, as well as tests for concurrent requests against the in-memory store. I would also investigate behavior with very large request payloads and larger task collections to understand the API's performance and limits.
+
+### What surprised me in the codebase
+
+The `completeTask` behavior surprised me because completing a task also resets its priority to `medium`. I left this unchanged because it was unclear whether this was intentional business logic or a bug that should be confirmed before modifying it.
+
+I also noticed that the status values documented in the README do not fully match the values used by the implementation, which could cause confusion for someone consuming the API based on the documentation.
+
+### Questions I'd ask before shipping to production
+
+- Is resetting the task priority to `medium` when completing a task intentional?
+- Which task fields should the `PUT /tasks/:id` endpoint allow clients to update?
+- Is the in-memory store only for this assignment, or is there a plan to move to persistent storage before production?
+- What authentication and authorization rules should apply to operations such as assigning, completing, updating, and deleting tasks?
