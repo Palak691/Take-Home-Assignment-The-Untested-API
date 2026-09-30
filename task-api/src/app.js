@@ -13,10 +13,11 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
-if (require.main === module) {
+if (require.main === module) {//means Jest won't accidentally start port 3000 when importing app.
   app.listen(PORT, () => {
     console.log(`Task API running on port ${PORT}`);
   });
 }
 
 module.exports = app;
+//That means our test can import the Express app without starting a real server.
